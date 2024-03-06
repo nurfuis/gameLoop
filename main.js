@@ -4,6 +4,7 @@ import { Vector2 } from "./src/Vector2";
 
 import { GameObject } from "./src/gameObject";
 import { GameLoop } from "./src/gameLoop";
+import { Player } from "./src/Player";
 
 const display = document.querySelector("#display");
 display.width = gameParams.width;
@@ -17,6 +18,9 @@ offscreenCanvas.height = gameParams.height;
 const offscreenCtx = offscreenCanvas.getContext("2d");
 
 const main = new GameObject({ position: new Vector2(0, 0) });
+
+const player = new Player();
+main.addChild(player);
 
 const update = (delta) => {
   main.stepEntry(delta, main);
