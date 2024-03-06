@@ -27,11 +27,6 @@ export class GameObject {
       this.hasReadyBeenCalled = true;
       this.ready();
     }
-
-    if (this.zSort === true) {
-      this.sortChildren();
-    }
-
     this.step(delta, root);
   }
 
@@ -67,48 +62,5 @@ export class GameObject {
   removeChild(gameObject) {
     events.unsubscribe(gameObject);
     this.children = this.children.filter((g) => g !== gameObject);
-  }
-
-  sortChildren() {
-    this.children.sort((a, b) => {
-      const aQuadrant =
-        a.position.x >= 0
-          ? a.position.y >= 0
-            ? 1
-            : 4
-          : a.position.y >= 0
-            ? 2
-            : 3;
-      const bQuadrant =
-        b.position.x >= 0
-          ? b.position.y >= 0
-            ? 1
-            : 4
-          : b.position.y >= 0
-            ? 2
-            : 3;
-
-      // Apply quadrant-specific sorting
-      if (aQuadrant !== bQuadrant) {
-        // Prioritize based on quadrant
-        return aQuadrant - bQuadrant;
-      } else {
-        // Same quadrant
-        if (a.position.y !== b.position.y) {
-          // Modify based on quadrant
-          if (aQuadrant === 1 || aQuadrant === 4) {
-            return a.position.y - b.position.y; // Ascending
-          } else {
-            return b.position.y - a.position.y; // Descending
-          }
-        } else {
-          if (aQuadrant === 1 || aQuadrant === 4) {
-            return a.position.x - b.position.x; // Ascending
-          } else {
-            return b.position.x - a.position.x; // Descending
-          }
-        }
-      }
-    });
   }
 }
