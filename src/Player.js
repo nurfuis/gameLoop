@@ -24,7 +24,7 @@ export class Player extends GameObject {
     }
   }  
   step(delta, root) {
-    this.move.right(1)
+       
   }
 
   drawImage(ctx) {

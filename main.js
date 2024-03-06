@@ -5,6 +5,7 @@ import { Vector2 } from "./src/Vector2";
 import { GameObject } from "./src/gameObject";
 import { GameLoop } from "./src/gameLoop";
 import { Player } from "./src/Player";
+import { Input } from "./src/Input";
 
 const display = document.querySelector("#display");
 display.width = gameParams.width;
@@ -21,6 +22,9 @@ const main = new GameObject({ position: new Vector2(0, 0) });
 
 const player = new Player();
 main.addChild(player);
+
+const input = new Input();
+main.input = input;
 
 const update = (delta) => {
   main.stepEntry(delta, main);
