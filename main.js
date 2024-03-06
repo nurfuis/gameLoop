@@ -4,6 +4,7 @@
  */
 import gameParams from "./config/gameParams.json";
 
+import { Vector2 } from "./src/Vector2";
 /**
  * Imports the `GameObject` class for representing game objects within the game.
  */
