@@ -49,20 +49,16 @@ export class Input {
   }
 
   onArrowPressed(direction) {
-    if (!this.isTextFocused) {
       if (this.heldDirections.indexOf(direction) === -1) {
         this.heldDirections.unshift(direction);
       }
-    }
   }
 
   onArrowReleased(direction) {
-    if (!this.isTextFocused) {
       const index = this.heldDirections.indexOf(direction);
       if (index === -1) {
         return;
       }
       this.heldDirections.splice(index, 1);
-    }
   }
 }
