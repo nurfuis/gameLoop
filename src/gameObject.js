@@ -6,21 +6,15 @@ export class GameObject {
   children;
   parent;
   hasReadyBeenCalled;
-  zSort;
 
   constructor(options) {
     this.position = options.position ?? new Vector2(0, 0);
     this.children = [];
     this.parent = null;
     this.hasReadyBeenCalled = false;
-    this.zSort = false;
   }
 
   stepEntry(delta, root) {
-    if (this.inactive) {
-      return;
-    }
-
     this.children.forEach((child) => child.stepEntry(delta, root));
 
     if (!this.hasReadyBeenCalled) {
@@ -35,10 +29,6 @@ export class GameObject {
   step(delta) {}
 
   draw(ctx, x, y) {
-    if (this.invisible) {
-      return;
-    }
-
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
 
