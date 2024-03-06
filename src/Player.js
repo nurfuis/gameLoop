@@ -1,4 +1,5 @@
 import { Vector2 } from "./Vector2.js";
+import { MoveUnit } from "./commands/MoveUnit.js";
 import { GameObject } from "./gameObject.js";
 
 export class Player extends GameObject {
@@ -9,6 +10,8 @@ export class Player extends GameObject {
     this.width = 64;
     this.height = 64;
     this.radius = 32;
+
+    this.move = new MoveUnit(this);
   }
 
   get center() {
@@ -20,7 +23,9 @@ export class Player extends GameObject {
       return this.position.duplicate();
     }
   }  
-  step(delta, root) {}
+  step(delta, root) {
+    this.move.right(1)
+  }
 
   drawImage(ctx) {
     ctx.beginPath(); // Start a new path
