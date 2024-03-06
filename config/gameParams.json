@@ -1,5 +1,16 @@
 {
+  "width": 900,
+  "height": 600,
+  "backgroundColor": "rgba(240, 240, 240, 0.5)",
+  "world": {
     "width": 1280,
     "height": 768,
-    "backgroundColor": "rgba(240, 240, 240, 0.5)"
+
+    "boundaries": {
+      "minX": 0,
+      "minY": 0,
+      "maxX": 900,
+      "maxY": 600
+    }
+  }
 }
