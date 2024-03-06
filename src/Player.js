@@ -12,6 +12,7 @@ export class Player extends GameObject {
     this.radius = 32;
 
     this.move = new MoveUnit(this);
+    this.speed = 10;
   }
 
   get center() {
@@ -22,13 +23,25 @@ export class Player extends GameObject {
     } else {
       return this.position.duplicate();
     }
-  }  
+  }
   step(delta, root) {
     const { input } = root;
     if (input.direction) {
-        console.log(input.direction)
-    } 
-
+      switch (input.direction) {
+        case "LEFT":
+          this.move.left(this.speed);
+          break;
+        case "RIGHT":
+          this.move.right(this.speed);
+          break;
+        case "UP":
+          this.move.up(this.speed);
+          break;
+        case "DOWN":
+          this.move.down(this.speed);
+          break;
+      }
+    }
   }
 
   drawImage(ctx) {
