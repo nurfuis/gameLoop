@@ -1,92 +1,27 @@
-/**
- * GameLoop class
- * @constructor
- * @param {function} update - Function to be called for game logic updates. This function
- *                             will be called with the elapsed time (in milliseconds) since the 
- *                             last update as an argument.
- * @param {function} render - Function to be called for rendering the game visuals.
- */
 export class GameLoop {
-    /**
-     * Timestamp of the last rendered frame.
-     * @type {number}
-     */
-    lastFrameTime = 0;
+    constructor(update, render) {
+      this.lastFrameTime = 0;
+      this.accumulatedTime = 0;
+      this.timeStep = 1000 / 60; // set to run at 60 fps
   
-    /**
-     * Accumulated time passed between frames, used for fixed time-step updates.
-     * @type {number}
-     */
-    accumulatedTime = 0;
+      this.fps = 0; // fps tracker
+      this.frameCount = 0; // fps tracker
+      this.frameTime = 0; // fps tracker
   
-    /**
-     * Target time between frames (in milliseconds), aiming for a specific frame rate (default: 60 fps).
-     * @type {number}
-     */
-    timeStep = 1000 / 60; // set to run at 60 fps
+      this.update = update;
+      this.render = render;
   
-    /**
-     * Current frames per second (fps).
-     * @type {number}
-     */
-    fps = 0;
+      this.rafId = null;
+      this.isRunning = false;
+      this.isPaused = false;
+      
+      this.debug = false;
+    }
   
-    /**
-     * Used for calculating fps (number of frames since last fps calculation).
-     * @type {number}
-     */
-    frameCount = 0;
-  
-    /**
-     * Used for calculating fps (accumulated time since last fps calculation).
-     * @type {number}
-     */
-    frameTime = 0;
-  
-    /**
-     * Function to be called for game logic updates, provided during object creation.
-     * @type {function}
-     */
-    update;
-  
-    /**
-     * Function to be called for rendering the game visuals, provided during object creation.
-     * @type {function}
-     */
-    render;
-  
-    /**
-     * ID of the scheduled animation frame using requestAnimationFrame.
-     * @type {number}
-     */
-    rafId = null;
-  
-    /**
-     * Flag indicating if the game loop is running.
-     * @type {boolean}
-     */
-    isRunning = false;
-  
-    /**
-     * Flag indicating if the game loop is paused.
-     * @type {boolean}
-     */
-    isPaused = false;
-  
-    /**
-     * Flag for enabling debug features (optional).
-     * @type {boolean}
-     */
-    debug = false;
-  
-    /**
-     * Core function of the game loop, called repeatedly using requestAnimationFrame.
-     * @param {number} timestamp - DOMHighResTimeStamp representing the current time.
-     */
     mainLoop = (timestamp) => {
       if (!this.isRunning) return;
   
-      if (this.isPaused) {
+      if (this.isPaused){
         this.isPaused = false;
         this.lastFrameTime = timestamp;
       }
@@ -100,7 +35,6 @@ export class GameLoop {
         this.update(this.timeStep);
         this.accumulatedTime -= this.timeStep;
       }
-  
       this.render();
   
       this.rafId = requestAnimationFrame(this.mainLoop);
@@ -113,19 +47,12 @@ export class GameLoop {
       }
     };
   
-    /**
-     * Starts the game loop by requesting the first animation frame.
-     */
     start() {
       if (!this.isRunning) {
         this.isRunning = true;
         this.rafId = requestAnimationFrame(this.mainLoop);
       }
     }
-  
-    /**
-     * Stops the game loop by canceling the scheduled animation frame.
-     */
     stop() {
       if (this.rafId) {
         cancelAnimationFrame(this.rafId);
@@ -133,3 +60,4 @@ export class GameLoop {
       this.isRunning = false;
     }
   }
+  
