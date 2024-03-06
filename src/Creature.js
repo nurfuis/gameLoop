@@ -1,18 +1,22 @@
+import { randomInt } from "./utils/randomInt.js";
+import { AutomatedInput } from "./Automatedinput.js";
 import { Vector2 } from "./Vector2.js";
 import { MoveUnit } from "./commands/MoveUnit.js";
 import { GameObject } from "./gameObject.js";
 
-export class Player extends GameObject {
+export class Creature extends GameObject {
   constructor() {
     super({
       position: new Vector2(0, 0),
     });
-    this.width = 64;
-    this.height = 64;
-    this.radius = 32;
+    this.width = 32;
+    this.height = 32;
+    this.radius = 16;
 
     this.move = new MoveUnit(this);
-    this.speed = 10;
+    this.speed = 5;
+
+    this.input = new AutomatedInput();
   }
 
   get center() {
@@ -24,12 +28,17 @@ export class Player extends GameObject {
       return this.position.duplicate();
     }
   }
-
+  ready() {}
   step(delta, root) {
-    const input = root.input || root.automatedInput;
+    const random = randomInt(0, 10);
+    const { spawner } = root;
 
-    if (input.direction) {
-      switch (input.direction) {
+    if (random === 0 && spawner.count < spawner.max) {
+      this.parent.addChild(spawner.spawn());
+    }
+
+    if (this.input.direction) {
+      switch (this.input.direction) {
         case "LEFT":
           this.move.left(this.speed);
           break;
@@ -52,7 +61,7 @@ export class Player extends GameObject {
     ctx.strokeWidth = 5; // Adjust to your desired thickness
 
     ctx.strokeStyle = "red";
-    ctx.fillStyle = "rgba(255, 255, 0, 0.8)";
+    ctx.fillStyle = "rgba(155, 155, 155, 1)";
     ctx.strokeStyle = "red";
     ctx.stroke(); // Draw the circle
     ctx.fill(); // Add a semi-transparent fill
