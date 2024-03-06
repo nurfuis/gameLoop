@@ -8,8 +8,6 @@ export class Input {
     this.heldDirections = [];
 
     document.addEventListener("keydown", (e) => {
-      this.keyPresses.push(e);
-      this.keyCode = e.code;
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowPressed(UP);
       }

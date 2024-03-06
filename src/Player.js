@@ -24,7 +24,11 @@ export class Player extends GameObject {
     }
   }  
   step(delta, root) {
-       
+    const { input } = root;
+    if (input.direction) {
+        console.log(input.direction)
+    } 
+
   }
 
   drawImage(ctx) {
