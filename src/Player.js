@@ -1,5 +1,8 @@
 import { Vector2 } from "./Vector2.js";
-import { MoveUnit } from "./commands/MoveUnit.js";
+import { AdjustHealth } from "./components/AdjustHealth.js";
+import { AttackArea } from "./components/AttackArea.js";
+import { Grow } from "./components/subscribers/Grow.js";
+import { MoveUnit } from "./components/MoveUnit.js";
 import { GameObject } from "./gameObject.js";
 
 export class Player extends GameObject {
@@ -10,9 +13,13 @@ export class Player extends GameObject {
     this.width = 64;
     this.height = 64;
     this.radius = 32;
+    this.speed = 10;
 
     this.move = new MoveUnit(this);
-    this.speed = 10;
+    this.health = new AdjustHealth(this);
+    this.ability = new AttackArea(this, 1000, this.radius * 3, 5);
+    
+    this.grow = new Grow(this);
   }
 
   get center() {
@@ -44,6 +51,8 @@ export class Player extends GameObject {
           break;
       }
     }
+
+    this.ability.attack();
   }
 
   drawImage(ctx) {
@@ -52,12 +61,12 @@ export class Player extends GameObject {
     ctx.strokeWidth = 5; // Adjust to your desired thickness
 
     ctx.strokeStyle = "red";
-    ctx.fillStyle = "rgba(255, 255, 0, 0.8)";
+    ctx.fillStyle = "rgba(055, 055, 100, 0.8)";
     ctx.strokeStyle = "red";
     ctx.stroke(); // Draw the circle
     ctx.fill(); // Add a semi-transparent fill
 
     ctx.closePath(); // Close the path
-    ctx.strokeWidth = 1; // Adjust to your desired thickness
+    ctx.strokeWidth = 3; // Adjust to your desired thickness
   }
 }

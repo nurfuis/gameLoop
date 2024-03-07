@@ -1,8 +1,10 @@
 import { randomInt } from "./utils/randomInt.js";
 import { AutomatedInput } from "./Automatedinput.js";
 import { Vector2 } from "./Vector2.js";
-import { MoveUnit } from "./commands/MoveUnit.js";
+import { MoveUnit } from "./components/MoveUnit.js";
 import { GameObject } from "./gameObject.js";
+import { AdjustHealth } from "./components/AdjustHealth.js";
+import { Shrink } from "./components/subscribers/Shrink.js";
 
 export class Creature extends GameObject {
   constructor() {
@@ -12,9 +14,13 @@ export class Creature extends GameObject {
     this.width = 32;
     this.height = 32;
     this.radius = 16;
+    this.speed = 5;
 
     this.move = new MoveUnit(this);
-    this.speed = 5;
+    this.health = new AdjustHealth(this);
+
+
+    this.size = new Shrink(this);
 
     this.input = new AutomatedInput();
   }
@@ -29,6 +35,7 @@ export class Creature extends GameObject {
     }
   }
   ready() {}
+
   step(delta, root) {
     const random = randomInt(0, 10);
     const { spawner } = root;
