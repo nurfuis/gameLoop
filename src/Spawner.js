@@ -1,9 +1,9 @@
-import gameParams from "../config/gameParams.json";
+import { WORLD_BOUNDARIES } from "./constants.js";
 import { randomInt } from "./utils/randomInt.js";
 
 export class Spawner {
   constructor(type) {
-    this.boundaries = gameParams.world.boundaries;
+    this.boundaries = WORLD_BOUNDARIES
     this.creatureClass = type;
     this.max = 16; // Set a maximum number of creatures
     this.count = 0; // Initialize a counter

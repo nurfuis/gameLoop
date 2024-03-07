@@ -1,6 +1,6 @@
 import { LEFT, RIGHT, UP, DOWN } from "./Input";
 export class AutomatedInput {
-  constructor(directions = [LEFT, RIGHT, UP, DOWN], interval = 1000) {
+  constructor(directions = [LEFT, RIGHT, UP, DOWN], interval = 100) {
     this.directions = directions;
     this.interval = interval;
     this.currentDirection = null;

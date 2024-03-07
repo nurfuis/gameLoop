@@ -6,6 +6,8 @@ export class AttackArea {
       this.maxTargets = maxTargets;
       this.damageDealt = 0;
       this.observers = [];
+      this.scoreCounter = document.getElementById("score-counter");
+
 
     }
     subscribe(observer) {
@@ -31,6 +33,7 @@ export class AttackArea {
         if (target !== this.entity) {
           target.health.subtract(damagePerTarget);
           this.damageDealt += damagePerTarget;
+          this.scoreCounter.textContent = this.damageDealt;
           this.notify(damagePerTarget)
         }
       }

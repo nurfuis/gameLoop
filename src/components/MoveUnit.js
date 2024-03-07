@@ -1,9 +1,9 @@
-import gameParams from "../../config/gameParams.json";
+import { WORLD_BOUNDARIES } from "../constants";
 
 export class MoveUnit {
   constructor(entity) {
     this.entity = entity;
-    this.boundaries = gameParams.world.boundaries; // Access boundaries from gameParams
+    this.boundaries = WORLD_BOUNDARIES;
     this.observers = [];
   }
   subscribe(observer) {
