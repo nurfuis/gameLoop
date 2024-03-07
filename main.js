@@ -88,7 +88,7 @@ startScreen.addEventListener("click", () => {
     main.addChild(player);
     main.addChild(creature);
     main.spawner = spawner;
-    // main.input = input;
+    main.input = input;
     main.automatedInput = automatedInput;
 
     gameLoop.start();
